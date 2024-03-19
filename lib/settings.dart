@@ -4,45 +4,30 @@ import 'dart:async';
 const double margin = 10;
 StreamController<bool> restart = StreamController<bool>();
 
-List<dynamic> questions = [
+List<Map<String, dynamic>> questions = [
   {
     "question": "Uit welke film of reeks komt deze foto?",
     "image": "assets/images/vraag_1.jpg",
-    "answers": ["The Book of Boba Fett", "The Last Jedi", "The Mandalorian"],
-    "correct": 2
+    "correctMovie": {},
+    "incorrectMovie": [],
   },
   {
     "question": "Uit welke film of reeks komt deze foto?",
     "image": "assets/images/vraag_2.jpg",
-    "answers": [
-      "The Empire Strikes Back",
-      "The Last Jedi",
-      "A New Hope",
-      "Return of the Jedi"
-    ],
-    "correct": 0
+    "correctMovie": {},
+    "incorrectMovie": [],
   },
   {
     "question": "Uit welke film of reeks komt deze foto?",
     "image": "assets/images/vraag_3.jpg",
-    "answers": [
-      "Revenge of the Sith",
-      "Rogue One",
-      "Attack of the Clones",
-      "The Phantom Menace"
-    ],
-    "correct": 0
+    "correctMovie": {},
+    "incorrectMovie": [],
   },
   {
     "question": "Uit welke film of reeks komt deze foto?",
     "image": "assets/images/vraag_4.jpg",
-    "answers": [
-      "Han Solo",
-      "The Clone Wars",
-      "The Book of Boba Fett",
-      "Rogue One"
-    ],
-    "correct": 0
+    "correctMovie": {},
+    "incorrectMovie": [],
   }
 ];
 
