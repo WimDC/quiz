@@ -51,44 +51,96 @@ List<dynamic> questions = [
   }
 ];
 
+List<dynamic> randomQuestions = [
+  {
+    "question": "Uit welke film of reeks komt deze foto?",
+    "images": [
+      "assets/images/AotC1.jpg",
+      "assets/images/AotC2.jpg",
+      "assets/images/AotC3.jpg",
+    ],
+    "correct": "Episode II Attack of the Clones"
+  },
+  {
+    "question": "Uit welke film of reeks komt deze foto?",
+    "images": [
+      "assets/images/ESB1.jpg",
+      "assets/images/ESB2.jpg",
+      "assets/images/ESB3.jpg",
+    ],
+    "correct": "Episode V The Empire Strikes Back"
+  },
+  {
+    "question": "Uit welke film of reeks komt deze foto?",
+    "images": [
+      "assets/images/FA1.jpg",
+      "assets/images/FA2.jpg",
+      "assets/images/FA3.jpg",
+    ],
+    "correct": "Episode VII The Force Awakens"
+  },
+  {
+    "question": "Uit welke film of reeks komt deze foto?",
+    "images": [
+      "assets/images/LJ1.jpg",
+      "assets/images/LJ2.jpg",
+      "assets/images/LJ3.jpg",
+    ],
+    "correct": "Episode VIII The Last Jedi"
+  },
+];
+
 List<dynamic> movies = [
   {
+    "tag": "PM",
     "title": "Episode I The Phantom Menace",
     "director": "George Lucas",
     "year": 1999
   },
   {
+    "tag": "AotC",
     "title": "Episode II Attack of the Clones",
     "director": "George Lucas",
     "year": 2002
   },
   {
+    "tag": "RotS",
     "title": "Episode III Revenge of the Sith",
     "director": "George Lucas",
     "year": 2005
   },
-  {"title": "Episode IV A New Hope", "director": "George Lucas", "year": 1977},
   {
+    "tag": "NH",
+    "title": "Episode IV A New Hope",
+    "director": "George Lucas",
+    "year": 1977
+  },
+  {
+    "tag": "ESB",
     "title": "Episode V The Empire Strikes Back",
     "director": "Irvin Kershner",
     "year": 1980
   },
   {
+    "tag": "RotJ",
     "title": "Episode VI Return of the Jedi",
     "director": "Richard Marquand",
     "year": 1983
   },
   {
+    "tag": "FA",
     "title": "Episode VII The Force Awakens",
     "director": "J. J. Abrams",
     "year": 2015
   },
   {
+    "tag": "LJ",
     "title": "Episode VIII The Last Jedi",
     "director": "Rian Johnson",
     "year": 2017
   },
   {
+    "tag": "RoS",
     "title": "Episode IX The Rise of Skywalker",
     "director": "J. J. Abrams",
     "year": 2019
