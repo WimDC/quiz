@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:quiz/Parts/answerbutton.dart';
+import 'package:quiz/settings.dart';
 import '../settings.dart' as settings;
 import 'dart:math';
 
@@ -7,34 +8,77 @@ class Question extends StatelessWidget {
   final int questionNumber;
   final int score;
   final Function processAnswer;
-  final List<String> answers;
+  late List<String> answers;
+  final String randomQuestion;
 
   Question(this.questionNumber, this.score, this.processAnswer)
-      : answers = generateAnswers(questionNumber);
+      : randomQuestion = getRandomQuestion(questionNumber) {
+    answers = generateAnswers(questionNumber, randomQuestion);
+  }
 
-  static List<String> generateAnswers(int questionNumber) {
+  static List<String> generateAnswers(
+      int questionNumber, String randomQuestion) {
     List<String> answers = [];
 
     // Pick random movie titles for answers
     List<Map<String, dynamic>> shuffledMovies = List.from(settings.movies)
       ..shuffle();
 
+    // Determine the sortOfQuestion
+    String sortOfQuestion = getSortOfQuestion(questionNumber, randomQuestion);
+    print('sortOfQuestion: ' + sortOfQuestion);
+
+    // Fill the correct-tag in randomQuestions with the correct answer
+    String correct = shuffledMovies.firstWhere((movie) =>
+        movie['tag'] ==
+        settings.randomQuestions[questionNumber]['tag'])[sortOfQuestion];
+
+    print('correct: ' + correct);
+
+    settings.randomQuestions[questionNumber]['correct'] = correct;
+
+    print('Correct answer for question $questionNumber: $correct');
+
     // Ensure one of the answers is the correct one
-    answers.add(shuffledMovies.firstWhere((movie) =>
-        movie['title'] ==
-        settings.randomQuestions[questionNumber]['correct'])['title']);
+    dynamic correctAnswer = settings.randomQuestions[questionNumber]['correct'];
+    answers.add(correctAnswer);
 
     // Pick other random incorrect answers
-    for (int i = 0; i < 3; i++) {
-      if (shuffledMovies[i]['title'] !=
-          settings.randomQuestions[questionNumber]['correct']) {
-        answers.add(shuffledMovies[i]['title']);
+    for (int i = 0; i < shuffledMovies.length && answers.length < 4; i++) {
+      print('shuffledMovies.length: ' +
+          shuffledMovies.length.toString() +
+          ' i: ' +
+          i.toString());
+      if (shuffledMovies[i][sortOfQuestion] !=
+              settings.randomQuestions[questionNumber]['correct'] &&
+          !answers.contains(shuffledMovies[i][sortOfQuestion])) {
+        answers.add(shuffledMovies[i][sortOfQuestion]);
       }
     }
 
     answers.shuffle();
 
     return answers;
+  }
+
+  static String getRandomQuestion(int questionNumber) {
+    String randomQuestion = settings.randomQuestions[questionNumber]
+        ['questions'][Random().nextInt(questions.length - 1)];
+
+    return randomQuestion;
+  }
+
+  static String getSortOfQuestion(int questionNumber, String randomQuestion) {
+    print('randomQuestion: ' + randomQuestion);
+    String sortOfQuestion = "";
+    if (randomQuestion == "Uit welke film of reeks komt deze foto?") {
+      sortOfQuestion = "title";
+    } else if (randomQuestion == "In welk jaar is deze film geproduceerd?") {
+      sortOfQuestion = "year";
+    } else if (randomQuestion == "Wie heeft deze film geregisseerd?") {
+      sortOfQuestion = "director";
+    }
+    return sortOfQuestion;
   }
 
   Widget makeRowWithAnswerButtons(BuildContext context, int answerNumber) {
@@ -63,6 +107,8 @@ class Question extends StatelessWidget {
     ThemeData theme = Theme.of(context);
 
     List<String> images = settings.randomQuestions[questionNumber]['images'];
+    List<String> questions =
+        settings.randomQuestions[questionNumber]['questions'];
     String randomImage = images[Random().nextInt(images.length)];
 
     return ListView(
@@ -77,7 +123,7 @@ class Question extends StatelessWidget {
           child: Padding(
             padding: EdgeInsets.all(settings.margin),
             child: Text(
-              settings.randomQuestions[questionNumber]['question'],
+              randomQuestion,
               style: theme.textTheme.headlineMedium,
               textAlign: TextAlign.center,
             ),
