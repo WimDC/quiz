@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:quiz/Parts/quiz_generator.dart';
 import 'package:quiz/quiz.dart';
 import 'package:quiz/welcome.dart';
 import 'package:quiz/settings.dart';
@@ -15,6 +16,12 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
+    // Generate the quiz
+    final List<Map<String, dynamic>> quiz =
+        QuizGenerator.generateQuiz(movies, randomQuestion);
+    // Print the quiz
+    print(quiz);
+
     return MaterialApp(
       title: 'Kwistet!',
       theme: ThemeData(

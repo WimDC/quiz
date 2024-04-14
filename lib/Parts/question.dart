@@ -12,7 +12,7 @@ class Question extends StatelessWidget {
   final String randomQuestion;
 
   Question(this.questionNumber, this.score, this.processAnswer)
-      : randomQuestion = getRandomQuestion(questionNumber) {
+      : randomQuestion = getRandomQuestion() {
     answers = generateAnswers(questionNumber, randomQuestion);
   }
 
@@ -61,9 +61,9 @@ class Question extends StatelessWidget {
     return answers;
   }
 
-  static String getRandomQuestion(int questionNumber) {
-    String randomQuestion = settings.randomQuestions[questionNumber]
-        ['questions'][Random().nextInt(questions.length - 1)];
+  static String getRandomQuestion() {
+    String randomQuestion = settings.randomQuestion[0]['questions']
+        [Random().nextInt(questions.length - 1)];
 
     return randomQuestion;
   }
