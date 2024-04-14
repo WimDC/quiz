@@ -31,15 +31,13 @@ class QuizGenerator {
         sortOfQuestion = "director";
       }
 
-      // Generate the correct answer index
-      String correctAnswerTag = selectedMovie['tag'];
-      print('selectedMovie[tag] :' + selectedMovie['tag'].toString());
-      print('selectedMovie[title] :' + selectedMovie['title'].toString());
+      // Generate the correct answer
+      String correctAnswer = selectedMovie[sortOfQuestion];
 
       // add correct answer to answers
       List<String> answers = [];
-      answers.add(selectedMovie[sortOfQuestion]);
-      print('selectedMovie[sortOfQuestion] :' + selectedMovie[sortOfQuestion]);
+      answers.add(correctAnswer);
+      print('correctAnswer :' + correctAnswer);
 
       // add the incorrect answers
       for (int j = 0; j < 3; j++) {
@@ -59,10 +57,11 @@ class QuizGenerator {
 
       // Add the question and its details to the quiz
       quiz.add({
+        'questionNumber': i + 1,
         'question': question,
         'sortOfQuestion': sortOfQuestion,
         'answers': answers,
-        'correctAnswerTag': correctAnswerTag,
+        'correctAnswer': correctAnswer,
         'images': selectedMovie['images'],
       });
     }
