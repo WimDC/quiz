@@ -40,6 +40,12 @@ class _MyAnswerButtonState extends State<AnswerButton>
   }
 
   @override
+  void dispose() {
+    animController.dispose(); // Dispose of the AnimationController
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     double buttonWidth = MediaQuery.of(context).size.width * 0.4;
     var theme = Theme.of(context);

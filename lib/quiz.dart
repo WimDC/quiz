@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:quiz/Parts/Question.dart';
-import 'package:quiz/Parts/Result.dart';
+import 'package:quiz/Parts/question.dart';
+import 'package:quiz/Parts/result.dart';
+import 'package:quiz/Parts/quiz_generator.dart';
 import 'package:quiz/settings.dart' as settings;
 
 class Quiz extends StatefulWidget {
-  const Quiz({super.key});
+  const Quiz({Key? key}) : super(key: key);
 
   @override
   State<Quiz> createState() => _MyQuizState();
@@ -16,6 +17,10 @@ class _MyQuizState extends State<Quiz> with AutomaticKeepAliveClientMixin {
     return true;
   }
 
+  late List<Map<String, dynamic>> quizData;
+  int questionNumber = 0;
+  int score = 0;
+
   @override
   void initState() {
     settings.restart.stream.listen((event) {
@@ -24,16 +29,17 @@ class _MyQuizState extends State<Quiz> with AutomaticKeepAliveClientMixin {
         score = 0;
       });
     });
+    // Initialize quiz data
+    quizData =
+        QuizGenerator.generateQuiz(settings.movies, settings.randomQuestion);
     super.initState();
   }
 
-  int questionNumber = 0;
-  int score = 0;
-  int totalQuestions = settings.questions.length;
-
   void processAnswer(bool isCorrect) {
     if (isCorrect) {
-      score++;
+      setState(() {
+        score++;
+      });
     }
     setState(() {
       questionNumber++;
@@ -43,10 +49,15 @@ class _MyQuizState extends State<Quiz> with AutomaticKeepAliveClientMixin {
   @override
   Widget build(BuildContext context) {
     super.build(context);
-    if (questionNumber == totalQuestions) {
-      return Result(score);
+    if (questionNumber >= quizData.length) {
+      return Result(score, quizData.length);
     } else {
-      return Question(questionNumber, score, processAnswer);
+      return Question(
+        questionNumber,
+        score,
+        quizData[questionNumber],
+        processAnswer,
+      );
     }
   }
 }

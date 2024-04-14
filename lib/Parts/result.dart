@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:quiz/quiz.dart';
 import '../settings.dart' as settings;
+import 'package:quiz/Parts/quiz_generator.dart';
 
 class Result extends StatelessWidget {
   final int score;
-  Result(this.score, {super.key});
+  final int totalQuestions;
+  Result(this.score, this.totalQuestions, {super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -25,7 +28,7 @@ class Result extends StatelessWidget {
         )),
         Center(
             child: Text(
-          "van de ${settings.questions.length} vragen goed!",
+          "van de $totalQuestions vragen goed!",
           style: theme.textTheme.bodyLarge,
         )),
         Container(
